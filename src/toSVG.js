@@ -295,6 +295,39 @@ const bezier = (entity) => {
   return transformBoundingBoxAndElement(bbox, element, entity.transforms)
 }
 
+const text = function text(entity) {
+  let _element
+
+  /* text cleanup */
+  let text = entity.string
+
+  /* remove overscoring toggle */
+  text = text.replace('%%o', '')
+  /* remove underscroing toggle */
+  text = text.replace('%%u', '')
+  /* replace degree symbol */
+  text = text.replace('%%d', '°')
+  /* replace plus/minus tolerance symbol */
+  text = text.replace('%%d', '±')
+  /* remove circe diameter dimensioning symbol */
+  text = text.replace('%%c', '')
+  /* replace % symbol */
+  text = text.replace('%%%', '%')
+
+
+  if(Math.sign(entity.y) > 0)
+   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, -${entity.y * 2})">${text}</text>`
+  else
+   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, ${entity.y * -2})">${text}</text>`
+
+  const bbox = new Box2().expandByPoint({x: entity.x, y: entity.y})
+
+  return {
+    bbox,
+    element: _element
+  };
+}
+
 /**
  * Switcth the appropriate function on entity type. CIRCLE, ARC and ELLIPSE
  * produce native SVG elements, the rest produce interpolated polylines.
@@ -323,6 +356,10 @@ const entityToBoundsAndElement = (entity) => {
     case 'LWPOLYLINE':
     case 'POLYLINE': {
       return polyline(entity)
+    }
+    case 'TEXT':
+    case 'MTEXT': {
+      return text(entity)
     }
     default:
       logger.warn('entity type not supported in SVG rendering:', entity.type)
