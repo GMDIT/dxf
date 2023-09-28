@@ -75,14 +75,14 @@ export default (type, value, entity) => {
         entity.extendedData.customStrings = entity.extendedData.customStrings || [];
         entity.extendedData.customStrings.push(value);
       }
+      return {}
     }
     case 1001: {
       if(entity) {
         entity.extendedData = entity.extendedData || {};
         entity.extendedData.applicationName = value;
       }
-      //
-      return {};
+      return {}
     }
     default:
       return {}
