@@ -382,7 +382,7 @@ export default (parsed) => {
           acc.bbox.expandByPoint(bbox.max)
         }
         acc.elements.push(
-          `<g stroke="${rgbToColorAttribute(rgb)}">${element}</g>`,
+          `<g stroke="${rgbToColorAttribute(rgb)}" ${entity.fillColor ? 'fill="' + entity.fillColor + '"': ''}>${element}</g>`,
         )
       }
       return acc

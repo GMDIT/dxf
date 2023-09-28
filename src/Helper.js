@@ -52,6 +52,13 @@ export default class Helper {
     return this._groups
   }
 
+  toSVGCustom(entities) {
+    return toSVG({
+      ...this.parsed,
+      entities
+    })
+  }
+
   toSVG() {
     return toSVG(this.parsed)
   }
