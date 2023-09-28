@@ -30,7 +30,7 @@ export const process = (tuples) => {
           vertex.bulge = value
           break
         default:
-          Object.assign(entity, common(type, value))
+          Object.assign(entity, common(type, value, entity))
           break
       }
       return entity

@@ -1,4 +1,4 @@
-export default (type, value) => {
+export default (type, value, entity) => {
   switch (type) {
     case 5: {
       return {
@@ -68,6 +68,22 @@ export default (type, value) => {
       return {
         layout: value,
       }
+    case 1000: {
+      if(entity) {
+        entity.extendedData = entity.extendedData || {};
+        entity.extendedData.value = value;
+        entity.extendedData.customStrings = entity.extendedData.customStrings || [];
+        entity.extendedData.customStrings.push(value);
+      }
+    }
+    case 1001: {
+      if(entity) {
+        entity.extendedData = entity.extendedData || {};
+        entity.extendedData.applicationName = value;
+      }
+      //
+      return {};
+    }
     default:
       return {}
   }
