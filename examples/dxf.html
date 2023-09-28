@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>
   </head>
   <body>
-    <input type="file" id="file" />
+    <input type="file" id="file" accept=".dxf"/>
     <div>Number of entities:<span id="numberOfEntities">-</span></div>
     <div id="svg"></div>
     <script>
@@ -24,7 +24,7 @@
               var dxfContents = e.target.result
               var helper = new dxf.Helper(dxfContents)
               numberOfEntities.innerHTML = helper.denormalised.length
-              const svg = helper.toSVG()
+              const svg = helper.toSVGCustom(helper.parsed.entities.map(e => ({...e, fillColor: e.layer === 'VANI' ? '#EEEEEE' : null})))
               svgContainer.innerHTML = svg
             }
           }
