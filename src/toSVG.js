@@ -314,11 +314,12 @@ const text = function text(entity) {
   /* replace % symbol */
   text = text.replace('%%%', '%')
 
+  const rotation = entity.rotation !== undefined ? ' style="transform-box: fill-box; transform-origin: center left; transform: rotate(' + entity.rotation + 'deg) scale(1,-1);"' : ''
 
   if(Math.sign(entity.y) > 0)
-   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, -${entity.y * 2})">${text}</text>`
+   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, -${entity.y * 2})"${rotation}>${text}</text>`
   else
-   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, ${entity.y * -2})">${text}</text>`
+   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, ${entity.y * -2})"${rotation}>${text}</text>`
 
   const bbox = new Box2().expandByPoint({x: entity.x, y: entity.y})
 
