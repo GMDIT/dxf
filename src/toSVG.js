@@ -317,9 +317,9 @@ const text = function text(entity) {
   const rotation = entity.rotation !== undefined ? ' style="transform-box: fill-box; transform-origin: center left; transform: rotate(' + entity.rotation + 'deg) scale(1,-1);"' : ''
 
   if(Math.sign(entity.y) > 0)
-   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-family="Arial, sans-serif" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, -${entity.y * 2})"${rotation}>${text}</text>`
+   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-family="Arial, sans-serif" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" transform="scale(1, -1) translate(0, -${entity.y * 2})"${rotation}>${text}</text>`
   else
-   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-family="Arial, sans-serif" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" fill="#696969" transform="scale(1, -1) translate(0, ${entity.y * -2})"${rotation}>${text}</text>`
+   _element = `<text x="${entity.x}" y="${entity.y}" class="standard" font-family="Arial, sans-serif" font-size="${entity.textHeight + 0.1}px" stroke-width="0.01%" transform="scale(1, -1) translate(0, ${entity.y * -2})"${rotation}>${text}</text>`
 
   const bbox = new Box2().expandByPoint({x: entity.x, y: entity.y})
 
@@ -383,7 +383,7 @@ export default (parsed) => {
           acc.bbox.expandByPoint(bbox.max)
         }
         acc.elements.push(
-          `<g stroke="${rgbToColorAttribute(rgb)}" ${entity.fillColor ? 'fill="' + entity.fillColor + '"': ''}>${element}</g>`,
+          `<g stroke="${rgbToColorAttribute(rgb)}" fill="${entity.fillColor || (entity.type === 'TEXT' ? rgbToColorAttribute(rgb) : '') }">${element}</g>`,
         )
       }
       return acc
