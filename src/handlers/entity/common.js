@@ -71,18 +71,19 @@ export default (type, value, entity) => {
     case 1000: {
       if(entity) {
         entity.extendedData = entity.extendedData || {};
-        entity.extendedData.value = value;
+        if(entity.extendedData.value) entity.extendedData.value2 = value
+        else entity.extendedData.value = value;
         entity.extendedData.customStrings = entity.extendedData.customStrings || [];
         entity.extendedData.customStrings.push(value);
       }
-      return {}
+      return {extendedData: entity?.extendedData || value}
     }
     case 1001: {
       if(entity) {
         entity.extendedData = entity.extendedData || {};
         entity.extendedData.applicationName = value;
       }
-      return {}
+      return {extendedData: entity?.extendedData || value}
     }
     default:
       return {}
